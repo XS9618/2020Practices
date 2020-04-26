@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>colorsCard</title>
+    <script>
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if (clientWidth >= 750) {
+                        docEl.style.fontSize = '100px';
+                    } else {
+                        //html根元素大小   100设计稿的html大小
+                        docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+                    }
+                };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            font-size: .38rem;
+        }
+        .modal,#modal{
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            height: .48rem;
+            line-height: .48rem;
+            width: 1.6rem;
+            min-width: 60px;
+            background-color: transparent;
+            text-align: center;
+            display: none;
+            transition: width 600ms linear;
+        }
+        li{
+            color: transparent;
+            font-size: .14rem;
+            height: 1rem;
+            line-height: .8rem;
+        }
+        #colorBox{
+            display: flex;
+            justify-content: left;
+            flex-wrap: wrap;
+        }
+        .colorBox li{
+            list-style: none;
+            margin: .1rem 0;
+            width: 14%;
+            min-width: 68px;
+            max-height: 80px;
+            flex-grow: 1;
+        }
+        .colorBox li::selection{
+            background-color: transparent;
+        }
+        .colorBox li b,.publicBox li b{
+            color: #000;
+            font-size: .14rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .publicBox{
+            border: .001rem solid #ff0000;
+            padding: .1rem 0 1.2rem;
+            min-height: 1.4rem;
+            display: flex;
+            justify-content: left;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .publicBox>h2{
+            text-align: center;
+            font-size: .24rem;
+            height: .36rem;
+            line-height: .36rem;
+            width: 4rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            color: #7d7d7d;
+        }
+        .publicBox li{
+            list-style: none;
+            min-width: .68rem;
+            width: 14%;
+            max-height: 80px;
+            flex-grow: 1;
+            margin: .2rem 0;
+        }
+    </style>
+</head>
+<body>
+<h1>网站配色卡</h1>
+<p style="text-align: right;font-size: .14rem;color: #7d7d7d">按下鼠标右键(移动端长按)即可复制颜色值</p>
+<ul class="publicBox" id="publicBox" draggable="false">
+    <h2>可选择你喜欢的颜色拖入此区域内</h2>
+</ul>
+<ul id="colorBox" class="colorBox"></ul>
+<div class="modal" id="modal" style="font-size: .16rem">复制成功！</div>
+<script type="text/javascript">
+    function browserRedirect() {
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+        var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+        var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+        var bIsAndroid = sUserAgent.match(/android/i) == "android";
+        var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+        var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+        if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+            var mHref = window.location.href.replace(/colorsCard/ig,'m.colorsCard');
+            console.log(mHref);
+            window.location.href = mHref;
+        } else {
+
+        }
+    }
+    browserRedirect();
+</script>
+<script>
+    <!--色卡值-->
+    {
+        var myColors = 'RED\n' +
+        '50#ffebee\n' +
+        '100#ffcdd2\n' +
+        '200#ef9a9a\n' +
+        '300#e57373\n' +
+        '400#ef5350\n' +
+        '500#f44336\n' +
+        '600#e53935\n' +
+        '700#d32f2f\n' +
+        '800#c62828\n' +
+        '900#b71c1c\n' +
+        'A100#ff8a80\n' +
+        'A200#ff5252\n' +
+        'A400#ff1744\n' +
+        'A700#d50000\n' +
+        '\n' +
+        'PINK\n' +
+        '50#fce4ec\n' +
+        '100#f8bbd0\n' +
+        '200#f48fb1\n' +
+        '300#f06292\n' +
+        '400#ec407a\n' +
+        '500#e91e63\n' +
+        '600#d81b60\n' +
+        '700#c2185b\n' +
+        '800#ad1457\n' +
+        '900#880e4f\n' +
+        'A100#ff80ab\n' +
+        'A200#ff4081\n' +
+        'A400#f50057\n' +
+        'A700#c51162\n' +
+        '\n' +
+        'PURPLE\n' +
+        '50#f3e5f5\n' +
+        '100#e1bee7\n' +
+        '200#ce93d8\n' +
+        '300#ba68c8\n' +
+        '400#ab47bc\n' +
+        '500#9c27b0\n' +
+        '600#8e24aa\n' +
+        '700#7b1fa2\n' +
+        '800#6a1b9a\n' +
+        '900#4a148c\n' +
+        'A100#ea80fc\n' +
+        'A200#e040fb\n' +
+        'A400#d500f9\n' +
+        'A700#aa00ff\n' +
+        '\n' +
+        'INDIGO\n' +
+        '50#e8eaf6\n' +
+        '100#c5cae9\n' +
+        '200#9fa8da\n' +
+        '300#7986cb\n' +
+        '400#5c6bc0\n' +
+        '500#3f51b5\n' +
+        '600#3949ab\n' +
+        '700#303f9f\n' +
+        '800#283593\n' +
+        '900#1a237e\n' +
+        'A100#8c9eff\n' +
+        'A200#536dfe\n' +
+        'A400#3d5afe\n' +
+        'A700#304ffe\n' +
+        '\n' +
+        'BLUE\n' +
+        '50#e3f2fd\n' +
+        '100#bbdefb\n' +
+        '200#90caf9\n' +
+        '300#64b5f6\n' +
+        '400#42a5f5\n' +
+        '500#2196f3\n' +
+        '600#1e88e5\n' +
+        '700#1976d2\n' +
+        '800#1565c0\n' +
+        '900#0d47a1\n' +
+        'A100#82b1ff\n' +
+        'A200#448aff\n' +
+        'A400#2979ff\n' +
+        'A700#2962ff\n' +
+        '\n' +
+        'CYAN\n' +
+        '50#e0f7fa\n' +
+        '100#b2ebf2\n' +
+        '200#80deea\n' +
+        '300#4dd0e1\n' +
+        '400#26c6da\n' +
+        '500#00bcd4\n' +
+        '600#00acc1\n' +
+        '700#0097a7\n' +
+        '800#00838f\n' +
+        '900#006064\n' +
+        'A100#84ffff\n' +
+        'A200#18ffff\n' +
+        'A400#00e5ff\n' +
+        'A700#00b8d4\n' +
+        '\n' +
+        'TEAL\n' +
+        '50#e0f2f1\n' +
+        '100#b2dfdb\n' +
+        '200#80cbc4\n' +
+        '300#4db6ac\n' +
+        '400#26a69a\n' +
+        '500#009688\n' +
+        '600#00897b\n' +
+        '700#00796b\n' +
+        '800#00695c\n' +
+        '900#004d40\n' +
+        'A100#a7ffeb\n' +
+        'A200#64ffda\n' +
+        'A400#1de9b6\n' +
+        'A700#00bfa5\n' +
+        '\n' +
+        'YELLOW\n' +
+        '50#fffde7\n' +
+        '100#fff9c4\n' +
+        '200#fff59d\n' +
+        '300#fff176\n' +
+        '400#ffee58\n' +
+        '500#ffeb3b\n' +
+        '600#fdd835\n' +
+        '700#fbc02d\n' +
+        '800#f9a825\n' +
+        '900#f57f17\n' +
+        'A100#ffff8d\n' +
+        'A200#ffff00\n' +
+        'A400#ffea00\n' +
+        'A700#ffd600\n' +
+        '\n' +
+        'AMBER\n' +
+        '50#fff8e1\n' +
+        '100#ffecb3\n' +
+        '200#ffe082\n' +
+        '300#ffd54f\n' +
+        '400#ffca28\n' +
+        '500#ffc107\n' +
+        '600#ffb300\n' +
+        '700#ffa000\n' +
+        '800#ff8f00\n' +
+        '900#ff6f00\n' +
+        'A100#ffe57f\n' +
+        'A200#ffd740\n' +
+        'A400#ffc400\n' +
+        'A700#ffab00\n' +
+        '\n' +
+        'ORANGE\n' +
+        '50#fff3e0\n' +
+        '100#ffe0b2\n' +
+        '200#ffcc80\n' +
+        '300#ffb74d\n' +
+        '400#ffa726\n' +
+        '500#ff9800\n' +
+        '600#fb8c00\n' +
+        '700#f57c00\n' +
+        '800#ef6c00\n' +
+        '900#e65100\n' +
+        'A100#ffd180\n' +
+        'A200#ffab40\n' +
+        'A400#ff9100\n' +
+        'A700#ff6d00\n' +
+        '\n' +
+        'DEEP ORANGE\n' +
+        '50#fbe9e7\n' +
+        '100#ffccbc\n' +
+        '200#ffab91\n' +
+        '300#ff8a65\n' +
+        '400#ff7043\n' +
+        '500#ff5722\n' +
+        '600#f4511e\n' +
+        '700#e64a19\n' +
+        '800#d84315\n' +
+        '900#bf360c\n' +
+        'A100#ff9e80\n' +
+        'A200#ff6e40\n' +
+        'A400#ff3d00\n' +
+        'A700#dd2c00\n' +
+        '\n' +
+        'GREY\n' +
+        '50#fafafa\n' +
+        '100#f5f5f5\n' +
+        '200#eeeeee\n' +
+        '300#e0e0e0\n' +
+        '400#bdbdbd\n' +
+        '500#9e9e9e\n' +
+        '600#757575\n' +
+        '700#616161\n' +
+        '800#424242\n' +
+        '900#212121\n' +
+        '\n' +
+        'BLUE GREY\n' +
+        '50#eceff1\n' +
+        '100#cfd8dc\n' +
+        '200#b0bec5\n' +
+        '300#90a4ae\n' +
+        '400#78909c\n' +
+        '500#607d8b\n' +
+        '600#546e7a\n' +
+        '700#455a64\n' +
+        '800#37474f\n' +
+        '900#263238' +
+        '#6DF1E7' +
+        '#6AB2AD' +
+        '#219990' +
+        '#A5FBF5' +
+        '#CEFBF' +
+        '#B8F1ED' +
+        '#CCF8F5' +
+        '#D8F8F6' +
+        '#3C9D96' +
+        '#95B5B2';
+    }
+    var publicBox = document.getElementById('publicBox');   //页面用户选择色卡区域
+    var colorBox = document.getElementById('colorBox');     //页面色卡渲染区
+    var modal = document.getElementById('modal');       //复制成功弹窗
+    var showModal;      //showModal定时器
+    publicBox.addEventListener('contextmenu',e => {          // contextmenu  鼠标右击事件
+        if (e.target.nodeName.toLocaleLowerCase() === 'li' && e.which === 3){
+            e.preventDefault();         //阻止鼠标右键默认事件
+            e.target.setAttribute('draggable',false);
+            if (showModal){
+                clearTimeout(showModal)
+            }
+            var selection = window.getSelection();
+            selection.selectAllChildren(e.target);      //选中被点击的li
+            document.execCommand("Copy",true,null);       //复制
+            window.getSelection().empty();      //取消选中状态
+            modal.style.display = 'block';      //显示modal弹窗
+            modal.style.backgroundColor = e.target.innerText;
+            modal.style.width = '1.6rem';
+            showModal = setTimeout(()=>{
+                if (showModal){
+                    clearTimeout(showModal)
+                }
+                e.target.setAttribute('draggable',true);
+                modal.style.display = 'none';       //隐藏弹窗
+                modal.style.width = '1.4rem'
+            },600)
+        }
+    });
+    myColors = myColors.match(/#[a-zA-Z0-9]{6}/g);      //找出字符串中的颜色值
+    myColors.forEach((e,i) => {
+        createColorItems(e,i)
+    });
+    //  创建色卡列表
+    function createColorItems(color,i){
+        var colorItem = document.createElement('li');
+        // colorItem.innerText = color;
+        colorItem.innerHTML = `<b>${color}</b>`;
+        // colorItem.innerHTML = `${color}`;
+        // colorItem.style.left = '0';
+        // colorItem.style.top = `${i*60}px`;
+        // colorItem.style.width = '10%';
+        // colorItem.style.height = '1rem';
+        // colorItem.style.lineHeight = '.5rem';
+        colorItem.style.backgroundColor = color;
+        colorItem.setAttribute('draggable',true);
+        colorItem.setAttribute('index',i);
+        colorItem.id = `color${color}`;
+        colorBox.appendChild(colorItem);
+    }
+    //移动端事件
+    var timeOutEvent;
+    colorBox.addEventListener('touchstart',e => {
+         e = e || window.event;
+        clearTimeout(timeOutEvent);
+        console.log(e.target.nodeName.toLocaleLowerCase());
+        if (e.target.nodeName.toLocaleLowerCase() === 'li' || e.target.nodeName.toLocaleLowerCase() === 'b'){
+            console.log(e.target);
+            timeOutEvent = setTimeout(() => {
+                e.target.setAttribute('draggable',false);
+                var selection = window.getSelection();
+                selection.selectAllChildren(e.target);      //选中被点击的li
+                document.execCommand("Copy",true,null);       //复制
+                window.getSelection().empty();      //取消选中状态b
+                modal.style.display = 'block';      //显示modal弹窗
+                modal.style.backgroundColor = e.target.innerText;
+                modal.style.width = '1.6rem';
+            }, 500);
+        }
+    })
+    colorBox.addEventListener('touchend',e => {
+        e = e || window.event;
+        if (e.target.nodeName.toLocaleLowerCase() === 'li' || e.target.nodeName.toLocaleLowerCase() === 'b'){
+            clearTimeout(timeOutEvent);
+            var hideModal = setTimeout(()=>{
+                console.log(e.target);
+                e.target.setAttribute('draggable',true);
+                modal.style.display = 'none';       //隐藏弹窗
+                modal.style.width = '1.4rem'
+                clearTimeout(hideModal)
+            },400)
+        }
+    })
+//  拖拽事件，被拖拽元素
+    colorBox.addEventListener('dragstart',function (e) {
+        // console.log(parseInt(e.target.getAttribute('index')*60));
+        // console.log('开始拖拽');
+        e.dataTransfer.setData('colorId',e.target.id);
+    })
+    colorBox.addEventListener('drag',function (e) {
+        // console.log('拖拽进行中');
+    })
+    colorBox.addEventListener('dragend',function (e) {
+        // console.log('拖拽结束');
+    })
+//  拖拽事件，放置被拖拽对象的 容器元素
+    publicBox.addEventListener('dragstart',function (e) {
+        console.log('选框中的元素开始拖拽');
+        e.dataTransfer.setData('colorId',e.target.id);
+    })
+    publicBox.addEventListener('dropenter',function (e){
+        e = e || window.event
+        e.dataTransfer.dropEffect = 'copy';          //建议放此位置！！
+        // e.dataTransfer.dropEffect = 'link';
+        // console.log('进入目标元素')
+    })
+    publicBox.addEventListener('dragover',function (e){
+        e = e || window.event;
+        // e.dataTransfer.dropEffect = 'link';             //建议放此位置！！！
+        // console.log('在目标元素中拖拽');
+        e.preventDefault()
+    })
+    publicBox.addEventListener('dragleave',function (e) {
+        // console.log('拖放离开目标元素')
+    })
+    publicBox.addEventListener('drop',function (e) {
+        e = e || window.event
+        e.preventDefault();
+        e.stopPropagation();
+
+        var isDrop = e.target.nodeName.toLocaleLowerCase() === 'ul' || e.target.nodeName.toLocaleLowerCase() === 'h2';
+        if (isDrop){
+            if (e.dataTransfer.getData('colorId')){
+                if (e.target.style.height){
+                    var oHeight = parseInt(e.target.style.height) + 70;
+                    // e.target.style.height = `${oHeight}px`;
+                }else {
+                    // e.target.style.height = 120 + 'px';
+                }
+                publicBox.appendChild(document.getElementById(e.dataTransfer.getData('colorId')));
+            }else {
+                publicBox.insertBefore(document.getElementById(e.dataTransfer.getData('colorId')),publicBox.childNodes[0]);
+            }
+        }else {
+            publicBox.insertBefore(document.getElementById(e.dataTransfer.getData('colorId')),e.target);
+        }
+    })
+
+    // 双击移除选择的元素，并将此元素放置最前
+    publicBox.addEventListener('dblclick',(e)=>{
+        e = e || window.event
+        if (e.target.nodeName.toLowerCase() === 'li'){
+            publicBox.removeChild(e.target);
+            colorBox.insertBefore(e.target,colorBox.childNodes[0]);
+        }
+    })
+</script>
+</body>
+</html>
